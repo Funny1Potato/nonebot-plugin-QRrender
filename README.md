@@ -70,6 +70,7 @@ QR 1919810
 
 支持以`回复`、`附图`等方式直接上传图片并命名。例：
 
+<img src="https://github.com/Funny1Potato/nonebot-plugin-QRrender/blob/main/example.jpg" width="240">
 
 ## 可能遇到的问题
 
