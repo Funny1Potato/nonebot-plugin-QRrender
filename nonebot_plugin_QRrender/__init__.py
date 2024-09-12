@@ -31,7 +31,7 @@ __plugin_meta__ = PluginMetadata(
     usage="发送  即可生成",
     config=Config,
     type="application",
-    homepage="https://github.com/Noctulus/nonebot-plugin-QRrender",
+    homepage="https://github.com/Funny1Potato/nonebot-plugin-QRrender",
     supported_adapters={"~onebot.v11"},
 )
 
