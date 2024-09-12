@@ -28,7 +28,7 @@ from .config import Config
 __plugin_meta__ = PluginMetadata(
     name="二维码生成器",
     description="将文本转为二维码，可自定义样式",
-    usage="发送  即可生成",
+    usage="发送 QR帮助 即可获取指令文档",
     config=Config,
     type="application",
     homepage="https://github.com/Funny1Potato/nonebot-plugin-QRrender",
@@ -38,18 +38,13 @@ __plugin_meta__ = PluginMetadata(
 config = get_plugin_config(Config)
 
 #创建目录
-try:
-    os.mkdir("./data")
-except:
-    pass
-try:
-    os.mkdir("./data/QRrender")
-except:
-    pass
-try:
-    os.mkdir("./data/QRrender/library")
-except:
-    pass
+from nonebot import require
+
+require("nonebot_plugin_localstore")
+
+import nonebot_plugin_localstore as store
+
+
 
 
 #插件指令文档
@@ -57,12 +52,12 @@ botdoc = on_command("QR帮助")
 
 @botdoc.handle()
 async def QRhelp():
-    if not os.path.exists("./data/QRrender/library/help.png"):
+    data_file = store.get_plugin_data_file("help.png")
+    if not os.path.exists(data_file):
         async with AsyncClient() as session:
             response = await session.get("https://link.funnypotato.cn/QR.png")
-            open("./data/QRrender/library/help.png", "wb").write(response.content)  #下载文件
-    url = Path("./data/QRrender/library/help.png")
-    await botdoc.finish(MessageSegment.image(url))
+            data_file.write_bytes(response.content)  #下载文件
+    await botdoc.finish(MessageSegment.image(data_file))
 
 
 #二维码生成
@@ -72,13 +67,15 @@ async def QR(args: Message = CommandArg()):
     if data := args.extract_plain_text():           #获取文本
         try:
             words,p = data.split()
-            pic = f"./data/QRrender/library/{p}.jpg"
+            pic = str(store.get_plugin_data_file(f"{p}.jpg"))
         except:
             words = data
             pic = None
         if words == "":
             await m.finish("获取文本失败，请检查输入是否正确")
         res = config.QR_res
+        cache_dir = store.get_plugin_cache_dir()
+        cache = str(cache_dir)
         amzqr.run(
             words,
             version=res,
@@ -88,10 +85,10 @@ async def QR(args: Message = CommandArg()):
             contrast=1.0,
             brightness=1.0,
             save_name="temp.png",
-            save_dir="./data/QRrender"
+            save_dir=cache,
         )                                           #生成二维码
 
-        url = Path("./data/QRrender/temp.png")      #定位图片位置
+        url = store.get_plugin_cache_file("temp.png")      #定位图片位置
         await m.finish(MessageSegment.image(url))
     else:
         await m.finish("获取文本失败，请检查输入是否正确")
@@ -116,7 +113,7 @@ async def get_image(state: T_State, imgs: Message = Arg()):
 @lib.got("name", prompt="请为图片命名")
 async def get_name(matcher: Matcher, state: T_State, name: str = ArgPlainText()):
     state["name"] = name
-    location = Path(f"./data/QRrender/library/{name}.jpg")
+    location = store.get_plugin_data_file(f"{name}.jpg")
     if not os.path.exists(location):
         matcher.set_arg("judge", Message("1"))
     else:
@@ -136,13 +133,13 @@ async def main(bot: Bot, event: Event, state: T_State):
     urls = state["img_urls"]
     url = urls[0]
     name = state["name"]
-    direction = f"./data/QRrender/library/{name}.jpg"
+    direction = store.get_plugin_data_file(f"{name}.jpg")
     j = state["judge"]
     if j == "1":
         async with AsyncClient() as client:
             try:
                 res = await client.get(url)
-                open(direction, "wb").write(res.content)  #下载文件
+                direction.write_bytes(res.content)  #下载文件
                 if res.is_error:
                     await acg_trace.finish("获取图片失败")
                 else:
