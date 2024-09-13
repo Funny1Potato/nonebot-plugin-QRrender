@@ -86,6 +86,6 @@ QR 1919810
 □...
 
 ## 还有些想说的
-本仓库使用了[nonebot-plugin-template](https://github.com/A-kirami/nonebot-plugin-template)的模板，项目的图片获取部分参考了[nonebot-plugin-anime-trace](https://github.com/tomorinao-www/nonebot-plugin-anime-trace)的部分代码，谨向作者表示感谢
+本仓库使用了[nonebot-plugin-template](https://github.com/A-kirami/nonebot-plugin-template)的模板，项目的模板图片获取部分参考了[nonebot-plugin-anime-trace](https://github.com/tomorinao-www/nonebot-plugin-anime-trace)的部分代码，谨向作者表示感谢
 
 本人为普通大学生，并非计算机类的专业，水平有限，如有问题或建议请直接发issue，我会尽量解决
