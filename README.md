@@ -40,7 +40,7 @@ _✨ 将文本转为二维码，可自定义样式 ✨_
 
 | 配置项  | 必填 | 默认值 |          说明           |
 | :----: | :--: | :----: | :--------------------: |
-| QR_res |  否  |   5    | 二维码大小（范围为1~40） |
+| qr_res |  否  |   5    | 二维码大小（范围为1~40） |
 
 
 
@@ -52,7 +52,7 @@ _✨ 将文本转为二维码，可自定义样式 ✨_
 
 支持的参数：模板
 
-使用方法： `QR 文本 模板名` ，模板需自行上传或命名为`模板名.jpg`后添加至`data\QRrender\library`文件夹内
+使用方法： `QR 文本 模板名` ，模板需自行上传或命名为`模板名.jpg`后添加至[localstore](https://nonebot.dev/docs/best-practice/data-storing)插件配置的缓存文件夹内
 
 示例：
 ```
@@ -86,6 +86,6 @@ QR 1919810
 □...
 
 ## 还有些想说的
-本仓库使用了nonebot-plugin-template的模板，谨向作者表示感谢
+本仓库使用了[nonebot-plugin-template](https://github.com/A-kirami/nonebot-plugin-template)的模板，项目的图片获取部分参考了[nonebot-plugin-anime-trace](https://github.com/tomorinao-www/nonebot-plugin-anime-trace)的部分代码，谨向作者表示感谢
 
 本人为普通大学生，并非计算机类的专业，水平有限，如有问题或建议请直接发issue，我会尽量解决
