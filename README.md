@@ -52,7 +52,7 @@ _✨ 将文本转为二维码，可自定义样式 ✨_
 
 支持的参数：模板
 
-使用方法： `QR 文本 模板名` ，模板需[自行上传](###上传图片模板)或命名为`模板名.jpg`后添加至[localstore](https://nonebot.dev/docs/best-practice/data-storing)插件配置的data文件夹内
+使用方法： `QR 文本 模板名` ，模板需[自行上传](#上传图片模板)或命名为`模板名.jpg`后添加至[localstore](https://nonebot.dev/docs/best-practice/data-storing)插件配置的data文件夹内
 
 示例：
 ```
